@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Website</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #add8e6; /* Baby blue */
+            padding: 20px;
+            text-align: center;
+        }
+
+        #welcome {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        #yellow-strip {
+            height: 5px;
+            background-color: yellow;
+            margin-bottom: 20px;
+        }
+
+        #main-area {
+            background-color: #add8e6; /* Baby blue */
+            padding: 20px;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        #result p {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        #result .green {
+            color: green;
+        }
+
+        #result .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="welcome">Welcome</h1>
+        <div id="yellow-strip"></div>
+    </header>
+
+    <div id="main-area">
+        <div>
+            Notice! This is a prototype version.
+        </div>
+        <div>
+            <label for="inputLetters">Enter 3 capital letters:</label>
+            <input type="text" id="inputLetters" maxlength="3" pattern="[A-Z]">
+        </div>
+        <div>
+            <label for="inputNumbers">Enter 2 or 3 digit numbers:</label>
+            <input type="text" id="inputNumbers" maxlength="3" pattern="[0-9]">
+        </div>
+        <button onclick="checkInputs()">Check Inputs</button>
+
+        <div id="result">test</div>
+        <div id="list"></div>
+    </div>
+
+    <script>
+        function checkInputs() {
+            const letters2122 = ['HEG', 'HHI', 'HHP', 'HSS', 'HPS', 'HEC', 'HLS', 'HSP', 'HAR']; // List of valid capital letter combinations
+            //const validNumbers = ['12', '345', '678']; // List of valid 2 or 3 digit numbers
+            const specificClassesLetters = ['BUS','BIO','SPM'];
+            const specificClassesNumbers = ['401','193','366'];
+
+            const inputLetters = document.getElementById('inputLetters').value.toUpperCase();
+            const inputNumbers = document.getElementById('inputNumbers').value;
+
+            const resultElement = document.getElementById('result');
+
+            if (letters2122.includes(inputLetters) && (inputNumbers=="21" || inputNumbers=="22")) {
+                resultElement.innerHTML = '<p class="green">Valid Input</p>';
+                var clas = document.createElement("div");
+                clas.innerHTML = inputLetters + " " + inputNumbers;
+                clas.style.backgroundColor = "green";
+                document.getElementById("list").appendChild(clas);
+                return;
+            } 
+            for (var i = 0; i < specificClassesLetters.length;i++)
+            {
+                if (specificClassesLetters[i]==inputLetters && specificClassesNumbers[i]==inputNumbers)
+                {
+                    resultElement.innerHTML = '<p class="green">Valid Input</p>';
+                    var clas = document.createElement("div");
+                    clas.innerHTML = inputLetters + " " + inputNumbers;
+                    clas.style.backgroundColor = "green";
+                    document.getElementById("list").appendChild(clas);
+                    return;
+                }
+            }
+                
+            resultElement.innerHTML = '<p class="red">Inputs are not valid.</p>';
+        }
+    </script>
+
+</body>
+</html>
