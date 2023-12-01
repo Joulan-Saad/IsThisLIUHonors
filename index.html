@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Is This Honors?</title>
+    <title>Simple Website</title>
     <style>
         body {
             margin: 0;
@@ -50,65 +50,98 @@
         }
     </style>
 </head>
-<body>
+<body onload="initialize()">
 
     <header>
-        <h1 id="Is It Honors?">Welcome</h1>
+        <h1 id="welcome">Is This Honors?</h1>
         <div id="yellow-strip"></div>
     </header>
 
     <div id="main-area">
         <div>
-            Notice! This is a prototype version and does not work for all classes.
+            Notice! This is a prototype version.
         </div>
         <div>
-            <label for="inputLetters">Enter 3 capital letters:</label>
-            <input type="text" id="inputLetters" maxlength="3" pattern="[A-Z]">
+            <label for="inputLetters">Enter 3-4 capital letters:</label>
+            <input type="text" id="inputLetters" maxlength="4" pattern="[A-Z]">
         </div>
         <div>
-            <label for="inputNumbers">Enter 2 or 3 digit numbers:</label>
+            <label for="inputNumbers">Enter 3 digit numbers:</label>
             <input type="text" id="inputNumbers" maxlength="3" pattern="[0-9]">
         </div>
         <button onclick="checkInputs()">Check Inputs</button>
 
-        <div id="result">test</div>
-        <div id="list"></div>
+        <div id="result"></div>
+        <div id="list">
+            <span id="list0"></span>
+            <span id="list1"></span>
+            <span id="list2"></span>
+            <span id="list3"></span>
+            <span id="list4"></span>
+            <!--
+                Elements are being auto sorted into lists, all that's left is to position
+                each list accordingly so that they are not on top of each other
+            -->
+        </div>
     </div>
 
     <script>
+        function initialize()
+        {
+            classCount = 0;
+            rowCount=0;
+            list = document.getElementById("list");
+            resultElement = document.getElementById('list'+rowCount);
+        }
+
+        function displayClass(honors)
+        {
+            resultElement.innerHTML = "";
+            if (classCount%6==0)
+            {
+                rowCount++;
+                if (rowCount==7){rowCount=0;}
+                resultElement = document.getElementById('list'+rowCount);
+            }
+            if (honors){resultElement.innerHTML = '<p class="green">It\'s Honors!</p>';}
+            else {resultElement.innerHTML = '<p class="red">It\'s not Honors :(</p>';}
+            var clas = document.createElement("span")
+            clas.innerHTML = inputLetters + ' ' + inputNumbers;
+            clas.style.backgroundColor = honors?'green':'red';
+            list.appendChild(clas);
+            list.appendChild(document.createElement("br"));
+            classCount++;
+            return;
+        }
+
         function checkInputs() {
             const letters2122 = ['HEG', 'HHI', 'HHP', 'HSS', 'HPS', 'HEC', 'HLS', 'HSP', 'HAR']; // List of valid capital letter combinations
             //const validNumbers = ['12', '345', '678']; // List of valid 2 or 3 digit numbers
-            const specificClassesLetters = ['BUS','BIO','SPM'];
-            const specificClassesNumbers = ['401','193','366'];
+            const specificClassesLetters = ['BUS','BIO','SPM','DA','MUS','ENT','MKT','MKT','THE','AI'];
+            const specificClassesNumbers = ['401','193','366','460','299','71','80','82','192','300'];
+            //const specificClassesCampus = ['B','B','B','P','P','P','P','P','P','P']
 
-            const inputLetters = document.getElementById('inputLetters').value.toUpperCase();
-            const inputNumbers = document.getElementById('inputNumbers').value;
+            inputLetters = document.getElementById('inputLetters').value.toUpperCase();
+            inputNumbers = document.getElementById('inputNumbers').value;
 
-            const resultElement = document.getElementById('result');
+            
 
             if (letters2122.includes(inputLetters) && (inputNumbers=="21" || inputNumbers=="22")) {
-                resultElement.innerHTML = '<p class="green">Valid Input</p>';
-                var clas = document.createElement("div");
-                clas.innerHTML = inputLetters + " " + inputNumbers;
-                clas.style.backgroundColor = "green";
-                document.getElementById("list").appendChild(clas);
+                displayClass(true)
                 return;
             } 
+
             for (var i = 0; i < specificClassesLetters.length;i++)
             {
                 if (specificClassesLetters[i]==inputLetters && specificClassesNumbers[i]==inputNumbers)
                 {
-                    resultElement.innerHTML = '<p class="green">Valid Input</p>';
-                    var clas = document.createElement("div");
-                    clas.innerHTML = inputLetters + " " + inputNumbers;
-                    clas.style.backgroundColor = "green";
-                    document.getElementById("list").appendChild(clas);
+                    displayClass(true)
                     return;
                 }
             }
                 
-            resultElement.innerHTML = '<p class="red">Inputs are not valid, class has not been added, or class is not Honors.</p>';
+            displayClass(false)
+            return;
         }
     </script>
 
