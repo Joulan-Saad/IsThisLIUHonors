@@ -84,7 +84,138 @@
             backgroundPadding = 0;
             list = document.getElementById("list");
             honorsResult = document.getElementById("result");
-            const HONORSJSON = fetch('./honors_classes.json')
+            //const HONORSJSON = fetch('./honors_classes.json')
+            HONORS = [
+                {"Subject":"ACC","Catalog":"393"},
+                {"Subject":"ANT","Catalog":"195"},
+                {"Subject":"ANT","Catalog":"197"},
+                {"Subject":"ANT","Catalog":"198"},
+                {"Subject":"BIC","Catalog":"196"},
+                {"Subject":"BIC","Catalog":"186"},
+                {"Subject":"BIC","Catalog":"187"},
+                {"Subject":"BIO","Catalog":"123"},
+                {"Subject":"BIO","Catalog":"199"},
+                {"Subject":"BIO","Catalog":"120"},
+                {"Subject":"BIO","Catalog":"195"},
+                {"Subject":"BIO","Catalog":"196"},
+                {"Subject":"BIO","Catalog":"197"},
+                {"Subject":"BIO","Catalog":"198"},
+                {"Subject":"CHM","Catalog":"195"},
+                {"Subject":"CHM","Catalog":"196"},
+                {"Subject":"CHM","Catalog":"186"},
+                {"Subject":"CHM","Catalog":"187"},
+                {"Subject":"CS","Catalog":"170"},
+                {"Subject":"ECO","Catalog":"195"},
+                {"Subject":"ECO","Catalog":"196"},
+                {"Subject":"ECO","Catalog":"197"},
+                {"Subject":"ECO","Catalog":"198"},
+                {"Subject":"ENG","Catalog":"195"},
+                {"Subject":"ENG","Catalog":"196"},
+                {"Subject":"ENG","Catalog":"197"},
+                {"Subject":"ENG","Catalog":"198"},
+                {"Subject":"ENG","Catalog":"199"},
+                {"Subject":"ENG","Catalog":"191"},
+                {"Subject":"ENG","Catalog":"190"},
+                {"Subject":"ENG","Catalog":"192"},
+                {"Subject":"ESW","Catalog":"197"},
+                {"Subject":"FIL","Catalog":"199"},
+                {"Subject":"FIL","Catalog":"188"},
+                {"Subject":"FIN","Catalog":"393"},
+                {"Subject":"FIN","Catalog":"397"},
+                {"Subject":"FRE","Catalog":"195"},
+                {"Subject":"FRE","Catalog":"196"},
+                {"Subject":"FRE","Catalog":"197"},
+                {"Subject":"FRE","Catalog":"198"},
+                {"Subject":"HHE","Catalog":"195"},
+                {"Subject":"HHE","Catalog":"196"},
+                {"Subject":"HHE","Catalog":"197"},
+                {"Subject":"HHE","Catalog":"198"},
+                {"Subject":"HHE","Catalog":"201"},
+                {"Subject":"HIS","Catalog":"195"},
+                {"Subject":"HIS","Catalog":"196"},
+                {"Subject":"HIS","Catalog":"197"},
+                {"Subject":"HIS","Catalog":"198"},
+                {"Subject":"HS","Catalog":"497"},
+                {"Subject":"HS","Catalog":"498"},
+                {"Subject":"HS","Catalog":"499"},
+                {"Subject":"HSM","Catalog":"109"},
+                {"Subject":"HSM","Catalog":"110"},
+                {"Subject":"HUM","Catalog":"197"},
+                {"Subject":"HUM","Catalog":"198"},
+                {"Subject":"HUM","Catalog":"1981"},
+                {"Subject":"HUM","Catalog":"199"},
+                {"Subject":"ITL","Catalog":"197"},
+                {"Subject":"ITL","Catalog":"198"},
+                {"Subject":"JOU","Catalog":"161"},
+                {"Subject":"JOU","Catalog":"162"},
+                {"Subject":"JOU","Catalog":"195"},
+                {"Subject":"JOU","Catalog":"196"},
+                {"Subject":"JOU","Catalog":"197"},
+                {"Subject":"JOU","Catalog":"198"},
+                {"Subject":"JOU","Catalog":"160"},
+                {"Subject":"MA","Catalog":"195"},
+                {"Subject":"MA","Catalog":"196"},
+                {"Subject":"MA","Catalog":"197"},
+                {"Subject":"MA","Catalog":"198"},
+                {"Subject":"MA","Catalog":"199"},
+                {"Subject":"MA","Catalog":"202"},
+                {"Subject":"MAN","Catalog":"393"},
+                {"Subject":"MAN","Catalog":"397"},
+                {"Subject":"MKT","Catalog":"337"},
+                {"Subject":"MKT","Catalog":"393"},
+                {"Subject":"MKT","Catalog":"397"},
+                {"Subject":"MTH","Catalog":"195"},
+                {"Subject":"MTH","Catalog":"196"},
+                {"Subject":"MTH","Catalog":"197"},
+                {"Subject":"MUS","Catalog":"195"},
+                {"Subject":"MUS","Catalog":"196"},
+                {"Subject":"MUS","Catalog":"197"},
+                {"Subject":"MUS","Catalog":"198"},
+                {"Subject":"MUS","Catalog":"185"},
+                {"Subject":"PHI","Catalog":"195"},
+                {"Subject":"PHI","Catalog":"196"},
+                {"Subject":"PHI","Catalog":"197"},
+                {"Subject":"PHI","Catalog":"198"},
+                {"Subject":"PHY","Catalog":"197"},
+                {"Subject":"PHY","Catalog":"198"},
+                {"Subject":"POL","Catalog":"195"},
+                {"Subject":"POL","Catalog":"196"},
+                {"Subject":"POL","Catalog":"197"},
+                {"Subject":"POL","Catalog":"198"},
+                {"Subject":"POL","Catalog":"190"},
+                {"Subject":"POL","Catalog":"191"},
+                {"Subject":"PSY","Catalog":"281"},
+                {"Subject":"PSY","Catalog":"228"},
+                {"Subject":"PSY","Catalog":"295"},
+                {"Subject":"PSY","Catalog":"296"},
+                {"Subject":"PSY","Catalog":"197"},
+                {"Subject":"PSY","Catalog":"297"},
+                {"Subject":"PSY","Catalog":"298"},
+                {"Subject":"RC","Catalog":"301"},
+                {"Subject":"SCM","Catalog":"152"},
+                {"Subject":"SOC","Catalog":"195"},
+                {"Subject":"SOC","Catalog":"197"},
+                {"Subject":"SOC","Catalog":"198"},
+                {"Subject":"SPA","Catalog":"195"},
+                {"Subject":"SPA","Catalog":"196"},
+                {"Subject":"SPA","Catalog":"197"},
+                {"Subject":"SPA","Catalog":"198"},
+                {"Subject":"SPE","Catalog":"195"},
+                {"Subject":"SPE","Catalog":"196"},
+                {"Subject":"SPE","Catalog":"197"},
+                {"Subject":"SPE","Catalog":"198"},
+                {"Subject":"SPM","Catalog":"366"},
+                {"Subject":"SWK","Catalog":"197"},
+                {"Subject":"SWK","Catalog":"198"},
+                {"Subject":"SWK","Catalog":"199"},
+                {"Subject":"SWK","Catalog":"180"},
+                {"Subject":"SWK","Catalog":"181"},
+                {"Subject":"TEP","Catalog":"198"},
+                {"Subject":"TEP","Catalog":"205"},
+                {"Subject":"TEP","Catalog":"301"},
+                {"Subject":"TFT","Catalog":"199"},
+                {"Subject":"THE","Catalog":"195"},
+                {"Subject":"THE","Catalog":"196"}];
         }
         
         function displayClass(honors)
@@ -110,10 +241,10 @@
         }
 
         function checkInputs() {
-            const letters2122 = ['HEG', 'HHI', 'HHP', 'HSS', 'HPS', 'HEC', 'HLS', 'HSP', 'HAR']; // Valid with 21 or 22
-            const anyLetters = ['GCOS','GEUR','GNYC']; //Valid with any number
-            const specificClassesLetters = ['BUS','BIO','SPM','DA','MUS','ENT','MKT','MKT','THE','AI']; //Valid with specific number pairing
-            const specificClassesNumbers = ['401','193','366','460','299','71','80','82','192','300']; //Valid with specific number pairing
+            const letters2122 = ['HEG', 'HHI', 'HHP', 'HSS', 'HPS', 'HEC', 'HLS', 'HSP', 'HAR']; // List of valid capital letter combinations
+            const anyLetters = ['GCOS','GEUR','GNYC'];
+            const specificClassesLetters = ['BUS','BIO','SPM','DA','MUS','ENT','MKT','MKT','THE','AI'];
+            const specificClassesNumbers = ['401','193','366','460','299','71','80','82','192','300'];
 
             inputLetters = document.getElementById('inputLetters').value.toUpperCase();
             inputNumbers = document.getElementById('inputNumbers').value;
@@ -127,13 +258,20 @@
 
             for (var i = 0; i < specificClassesLetters.length;i++)
             {
-                if (specificClassesLetters[i]==inputLetters && specificClassesNumbers[i]==inputNumbers)
+                if (specificClassesLetters[i]===inputLetters && specificClassesNumbers[i]===inputNumbers)
                 {
                     displayClass(true)
                     return;
                 }
             }
-
+            for (var i = 0;i<HONORS.length;i++)
+            {
+                if (HONORS[i].Subject==inputLetters && HONORS[i].Catalog==inputNumbers)
+                {
+                    displayClass(true);
+                    return
+                }
+            }
 
                 
             displayClass(false)
