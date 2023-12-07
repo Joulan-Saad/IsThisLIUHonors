@@ -8,7 +8,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #69B3e7; /* Baby blue */
+            background-color: #69B3e7; /* LIU blue */
         }
 
         header {
@@ -65,19 +65,20 @@
             <input type="text" id="inputLetters" maxlength="4" pattern="[A-Z]">
         </div>
         <div>
-            <label for="inputNumbers">Enter 3 digit numbers:</label>
-            <input type="text" id="inputNumbers" maxlength="3" pattern="[0-9]">
+            <label for="inputNumbers">Enter 3-4 digit numbers:</label>
+            <input type="text" id="inputNumbers" maxlength="4" pattern="[0-9]">
         </div>
         <button onclick="checkInputs()">Check Inputs</button>
+        <button onclick="swapCampus(this)">Currently Selected: Brooklyn Campus</button>
 
         <div id="result"></div>
         <div id="list"></div>
     </div>
 
-    <script type="text/javascript" src="./honors_classes.json"></script>
     <script>
         function initialize()
         {
+            campus = "BK"
             classCount = 0;
             rowCount=0;
             columnCount=0;
@@ -85,7 +86,7 @@
             list = document.getElementById("list");
             honorsResult = document.getElementById("result");
             //const HONORSJSON = fetch('./honors_classes.json')
-            HONORS = [
+            HONORSBK = [
                 {"Subject":"ACC","Catalog":"393"},
                 {"Subject":"ANT","Catalog":"195"},
                 {"Subject":"ANT","Catalog":"197"},
@@ -216,6 +217,303 @@
                 {"Subject":"TFT","Catalog":"199"},
                 {"Subject":"THE","Catalog":"195"},
                 {"Subject":"THE","Catalog":"196"}];
+            HONORSPOST = [
+                {"Subject" : "ACC",	 "Catalog":"385"},
+                {"Subject" : "ACC",	 "Catalog":"386"},
+                {"Subject" : "ACC",	 "Catalog":"389"},
+                {"Subject" : "ACC",	 "Catalog":"390"},
+                {"Subject" : "ANT",	 "Catalog":"99"},
+                {"Subject" : "ARM",	 "Catalog":"1"},
+                {"Subject" : "ARM",	 "Catalog":"89"},
+                {"Subject" : "ARM",	 "Catalog":"91"},
+                {"Subject" : "ARM",	 "Catalog":"99"},
+                {"Subject" : "ARM",	 "Catalog":"385"},
+                {"Subject" : "ARM",	 "Catalog":"386"},
+                {"Subject" : "ARM",	 "Catalog":"389"},
+                {"Subject" : "ARM",	 "Catalog":"390"},
+                {"Subject" : "ART",	 "Catalog":"91"},
+                {"Subject" : "ART",	 "Catalog":"92"},
+                {"Subject" : "ART",	 "Catalog":"95"},
+                {"Subject" : "ART",	 "Catalog":"96"},
+                {"Subject" : "ART",	 "Catalog":"97"},
+                {"Subject" : "ART",	 "Catalog":"98"},
+                {"Subject" : "ART",	 "Catalog":"99"},
+                {"Subject" : "ART",	 "Catalog":"102"},
+                {"Subject" : "BDST", "Catalog":"27"},
+                {"Subject" : "BDST", "Catalog":"65"},
+                {"Subject" : "BDST", "Catalog":"66"},
+                {"Subject" : "BDST", "Catalog":"82"},
+                {"Subject" : "BDST", "Catalog":"87"},
+                {"Subject" : "BDST", "Catalog":"88"},
+                {"Subject" : "BDST", "Catalog":"89"},
+                {"Subject" : "BDST", "Catalog":"89A"},
+                {"Subject" : "BDST", "Catalog":"91"},
+                {"Subject" : "BDST", "Catalog":"92"},
+                {"Subject" : "BDST", "Catalog":"385"},
+                {"Subject" : "BDST", "Catalog":"386"},
+                {"Subject" : "BDST", "Catalog":"389"},
+                {"Subject" : "BDST", "Catalog":"390"},
+                {"Subject" : "BIO",	 "Catalog":"298"},
+                {"Subject" : "BIO",	 "Catalog":"299"},
+                {"Subject" : "BIO",	 "Catalog":"385"},
+                {"Subject" : "BIO",	 "Catalog":"386"},
+                {"Subject" : "BIO",	 "Catalog":"389"},
+                {"Subject" : "BIO",	 "Catalog":"390"},
+                {"Subject" : "BIO",	 "Catalog":"360"},
+                {"Subject" : "BMS",	 "Catalog":"98"},
+                {"Subject" : "BMS",	 "Catalog":"99"},
+                {"Subject" : "BMS",	 "Catalog":"248"},
+                {"Subject" : "BMS",	 "Catalog":"385"},
+                {"Subject" : "BMS",	 "Catalog":"386"},
+                {"Subject" : "BMS",	 "Catalog":"389"},
+                {"Subject" : "BMS",	 "Catalog":"390"},
+                {"Subject" : "CACJ", "Catalog":"99"},
+                {"Subject" : "CACJ", "Catalog":"385"},
+                {"Subject" : "CACJ", "Catalog":"386"},
+                {"Subject" : "CACJ", "Catalog":"389"},
+                {"Subject" : "CACJ", "Catalog":"390"},
+                {"Subject" : "CGPH", "Catalog":"25"},
+                {"Subject" : "CGPH", "Catalog":"97"},
+                {"Subject" : "CGPH", "Catalog":"98"},
+                {"Subject" : "CGPH", "Catalog":"99"},
+                {"Subject" : "CHM",	 "Catalog":"93"},
+                {"Subject" : "CHM",	 "Catalog":"94"},
+                {"Subject" : "CHM",	 "Catalog":"98"},
+                {"Subject" : "CHM",	 "Catalog":"99"},
+                {"Subject" : "CHM",	 "Catalog":"385"},
+                {"Subject" : "CHM",	 "Catalog":"386"},
+                {"Subject" : "CHM",	 "Catalog":"389"},
+                {"Subject" : "CHM",	 "Catalog":"390"},
+                {"Subject" : "CHN",	 "Catalog":"1"},
+                {"Subject" : "CIN",	 "Catalog":"88"},
+                {"Subject" : "CIN",	 "Catalog":"89"},
+                {"Subject" : "CIN",	 "Catalog":"99"},
+                {"Subject" : "CIN",	 "Catalog":"385"},
+                {"Subject" : "CIN",	 "Catalog":"386"},
+                {"Subject" : "CIN",	 "Catalog":"389"},
+                {"Subject" : "CIN",	 "Catalog":"390"},
+                {"Subject" : "CMA",	 "Catalog":"94"},
+                {"Subject" : "CMA",	 "Catalog":"385"},
+                {"Subject" : "CMA",	 "Catalog":"386"},
+                {"Subject" : "CMA",	 "Catalog":"389"},
+                {"Subject" : "CMA",	 "Catalog":"390"},
+                {"Subject" : "COMM", "Catalog":"87"},
+                {"Subject" : "COMM", "Catalog":"91"},
+                {"Subject" : "COMM", "Catalog":"92"},
+                {"Subject" : "COMM", "Catalog":"385"},
+                {"Subject" : "COMM", "Catalog":"389"},
+                {"Subject" : "COMM", "Catalog":"390"},
+                {"Subject" : "CS",	 "Catalog":"289"},
+                {"Subject" : "CS",	 "Catalog":"385"},
+                {"Subject" : "CS",	 "Catalog":"386"},
+                {"Subject" : "CS",	 "Catalog":"389"},
+                {"Subject" : "CS",	 "Catalog":"390"},
+                {"Subject" : "DGD",	 "Catalog":"89"},
+                {"Subject" : "DGD",	 "Catalog":"385"},
+                {"Subject" : "DGD",	 "Catalog":"386"},
+                {"Subject" : "DGD",	 "Catalog":"389"},
+                {"Subject" : "DGD",	 "Catalog":"390"},
+                {"Subject" : "DGD",	 "Catalog":"88"},
+                {"Subject" : "ECO",	 "Catalog":"81"},
+                {"Subject" : "ECO",	 "Catalog":"385"},
+                {"Subject" : "ECO",	 "Catalog":"386"},
+                {"Subject" : "ECO",	 "Catalog":"389"},
+                {"Subject" : "ECO",	 "Catalog":"390"},
+                {"Subject" : "EDI",	 "Catalog":"71"},
+                {"Subject" : "EDI",	 "Catalog":"385"},
+                {"Subject" : "EDI",	 "Catalog":"386"},
+                {"Subject" : "EDI",	 "Catalog":"389"},
+                {"Subject" : "EDI",	 "Catalog":"390"},
+                {"Subject" : "EDS",	 "Catalog":"385"},
+                {"Subject" : "EDS",	 "Catalog":"389"},
+                {"Subject" : "EDS",	 "Catalog":"390"},
+                {"Subject" : "ENG",	 "Catalog":"90"},
+                {"Subject" : "ENG",	 "Catalog":"95"},
+                {"Subject" : "ENG",	 "Catalog":"99"},
+                {"Subject" : "ENG",	 "Catalog":"101"},
+                {"Subject" : "ENG",	 "Catalog":"207"},
+                {"Subject" : "ENG",	 "Catalog":"385"},
+                {"Subject" : "ENG",	 "Catalog":"386"},
+                {"Subject" : "ENG",	 "Catalog":"389"},
+                {"Subject" : "ENG",	 "Catalog":"390"},
+                {"Subject" : "ERS",	 "Catalog":"385"},
+                {"Subject" : "ERS",	 "Catalog":"386"},
+                {"Subject" : "ERS",	 "Catalog":"389"},
+                {"Subject" : "ERS",	 "Catalog":"390"},
+                {"Subject" : "FIN",	 "Catalog":"91"},
+                {"Subject" : "FIN",	 "Catalog":"92"},
+                {"Subject" : "FIN",	 "Catalog":"93"},
+                {"Subject" : "FIN",	 "Catalog":"94"},
+                {"Subject" : "FIN",	 "Catalog":"95"},
+                {"Subject" : "FIN",	 "Catalog":"385"},
+                {"Subject" : "FIN",	 "Catalog":"386"},
+                {"Subject" : "FIN",	 "Catalog":"389"},
+                {"Subject" : "FIN",	 "Catalog":"390"},
+                {"Subject" : "FM",	 "Catalog":"87"},
+                {"Subject" : "FM",	 "Catalog":"88"},
+                {"Subject" : "FM",	 "Catalog":"385"},
+                {"Subject" : "FM",	 "Catalog":"390"},
+                {"Subject" : "FSC",	 "Catalog":"389"},
+                {"Subject" : "FSC",	 "Catalog":"271"},
+                {"Subject" : "GGR",	 "Catalog":"81"},
+                {"Subject" : "GGR",	 "Catalog":"82"},
+                {"Subject" : "GLY",	 "Catalog":"42"},
+                {"Subject" : "GLY",	 "Catalog":"81"},
+                {"Subject" : "GLY",	 "Catalog":"100"},
+                {"Subject" : "HAD",	 "Catalog":"385"},
+                {"Subject" : "HAD",	 "Catalog":"386"},
+                {"Subject" : "HAD",	 "Catalog":"389"},
+                {"Subject" : "HAD",	 "Catalog":"390"},
+                {"Subject" : "HIS",	 "Catalog":"91"},
+                {"Subject" : "HIS",	 "Catalog":"198"},
+                {"Subject" : "HIS",	 "Catalog":"385"},
+                {"Subject" : "HIS",	 "Catalog":"386"},
+                {"Subject" : "HIS",	 "Catalog":"389"},
+                {"Subject" : "HIS",	 "Catalog":"390"},
+                {"Subject" : "HPA",	 "Catalog":"32"},
+                {"Subject" : "HPA",	 "Catalog":"385"},
+                {"Subject" : "HPA",	 "Catalog":"386"},
+                {"Subject" : "HPA",	 "Catalog":"389"},
+                {"Subject" : "HPA",	 "Catalog":"390"},
+                {"Subject" : "HPA",	 "Catalog":"31"},
+                {"Subject" : "HSC",	 "Catalog":"98"},
+                {"Subject" : "HSC",	 "Catalog":"99"},
+                {"Subject" : "HSC",	 "Catalog":"385"},
+                {"Subject" : "HSC",	 "Catalog":"386"},
+                {"Subject" : "HSC",	 "Catalog":"389"},
+                {"Subject" : "HSC",	 "Catalog":"390"},
+                {"Subject" : "IBU",	 "Catalog":"385"},
+                {"Subject" : "IBU",	 "Catalog":"390"},
+                {"Subject" : "IRD",	 "Catalog":"93"},
+                {"Subject" : "IRD",	 "Catalog":"94"},
+                {"Subject" : "IT",	 "Catalog":"281"},
+                {"Subject" : "IT",	 "Catalog":"289"},
+                {"Subject" : "JOU",	 "Catalog":"87"},
+                {"Subject" : "JOU",	 "Catalog":"88"},
+                {"Subject" : "JOU",	 "Catalog":"89"},
+                {"Subject" : "JOU",	 "Catalog":"91"},
+                {"Subject" : "JOU",	 "Catalog":"92"},
+                {"Subject" : "JOU",	 "Catalog":"385"},
+                {"Subject" : "JOU",	 "Catalog":"386"},
+                {"Subject" : "JOU",	 "Catalog":"389"},
+                {"Subject" : "JOU",	 "Catalog":"390"},
+                {"Subject" : "MAN",	 "Catalog":"91"},
+                {"Subject" : "MAN",	 "Catalog":"93"},
+                {"Subject" : "MAN",	 "Catalog":"385"},
+                {"Subject" : "MAN",	 "Catalog":"386"},
+                {"Subject" : "MAN",	 "Catalog":"389"},
+                {"Subject" : "MAN",	 "Catalog":"390"},
+                {"Subject" : "MAN",	 "Catalog":"90"},
+                {"Subject" : "MKT",	 "Catalog":"91"},
+                {"Subject" : "MKT",	 "Catalog":"92"},
+                {"Subject" : "MKT",	 "Catalog":"95"},
+                {"Subject" : "MKT",	 "Catalog":"96"},
+                {"Subject" : "MKT",	 "Catalog":"385"},
+                {"Subject" : "MKT",	 "Catalog":"386"},
+                {"Subject" : "MKT",	 "Catalog":"389"},
+                {"Subject" : "MKT",	 "Catalog":"390"},
+                {"Subject" : "MTH",	 "Catalog":"91"},
+                {"Subject" : "MTH",	 "Catalog":"96"},
+                {"Subject" : "MTH",	 "Catalog":"385"},
+                {"Subject" : "MTH",	 "Catalog":"386"},
+                {"Subject" : "MTH",	 "Catalog":"389"},
+                {"Subject" : "MTH",	 "Catalog":"390"},
+                {"Subject" : "MUS",	 "Catalog":"278"},
+                {"Subject" : "MUS",	 "Catalog":"279"},
+                {"Subject" : "MUS",	 "Catalog":"298"},
+                {"Subject" : "MUS",	 "Catalog":"385"},
+                {"Subject" : "MUS",	 "Catalog":"386"},
+                {"Subject" : "MUS",	 "Catalog":"389"},
+                {"Subject" : "MUS",	 "Catalog":"390"},
+                {"Subject" : "NRS",	 "Catalog":"385"},
+                {"Subject" : "NRS",	 "Catalog":"386"},
+                {"Subject" : "NRS",	 "Catalog":"389"},
+                {"Subject" : "NRS",	 "Catalog":"390"},
+                {"Subject" : "NTR",	 "Catalog":"99"},
+                {"Subject" : "NTR",	 "Catalog":"385"},
+                {"Subject" : "NTR",	 "Catalog":"386"},
+                {"Subject" : "NTR",	 "Catalog":"389"},
+                {"Subject" : "NTR",	 "Catalog":"390"},
+                {"Subject" : "NUR",	 "Catalog":"385"},
+                {"Subject" : "PE",	 "Catalog":"173"},
+                {"Subject" : "PE",	 "Catalog":"385"},
+                {"Subject" : "PE",	 "Catalog":"386"},
+                {"Subject" : "PE",	 "Catalog":"389"},
+                {"Subject" : "PE",	 "Catalog":"390"},
+                {"Subject" : "PHI",	 "Catalog":"385"},
+                {"Subject" : "PHI",	 "Catalog":"386"},
+                {"Subject" : "PHI",	 "Catalog":"389"},
+                {"Subject" : "PHI",	 "Catalog":"390"},
+                {"Subject" : "PHY",	 "Catalog":"16"},
+                {"Subject" : "PHY",	 "Catalog":"85"},
+                {"Subject" : "PHY",	 "Catalog":"86"},
+                {"Subject" : "PHY",	 "Catalog":"385"},
+                {"Subject" : "PHY",	 "Catalog":"386"},
+                {"Subject" : "PHY",	 "Catalog":"389"},
+                {"Subject" : "PHY",	 "Catalog":"390"},
+                {"Subject" : "POL",	 "Catalog":"93"},
+                {"Subject" : "POL",	 "Catalog":"93A"},
+                {"Subject" : "POL",	 "Catalog":"94"},
+                {"Subject" : "POL",	 "Catalog":"97"},
+                {"Subject" : "POL",	 "Catalog":"98"},
+                {"Subject" : "POL",	 "Catalog":"385"},
+                {"Subject" : "POL",	 "Catalog":"386"},
+                {"Subject" : "POL",	 "Catalog":"389"},
+                {"Subject" : "POL",	 "Catalog":"390"},
+                {"Subject" : "PSY",	 "Catalog":"385"},
+                {"Subject" : "PSY",	 "Catalog":"386"},
+                {"Subject" : "PSY",	 "Catalog":"389"},
+                {"Subject" : "PSY",	 "Catalog":"390"},
+                {"Subject" : "PSY",	 "Catalog":"410"},
+                {"Subject" : "PSY",	 "Catalog":"419"},
+                {"Subject" : "PSY",	 "Catalog":"480"},
+                {"Subject" : "PSY",	 "Catalog":"481"},
+                {"Subject" : "PSY",	 "Catalog":"492"},
+                {"Subject" : "PSY",	 "Catalog":"493"},
+                {"Subject" : "RDT",	 "Catalog":"230"},
+                {"Subject" : "RDT",	 "Catalog":"385"},
+                {"Subject" : "RDT",	 "Catalog":"386"},
+                {"Subject" : "RDT",	 "Catalog":"389"},
+                {"Subject" : "RDT",	 "Catalog":"390"},
+                {"Subject" : "SOC",	 "Catalog":"99"},
+                {"Subject" : "SOC",	 "Catalog":"385"},
+                {"Subject" : "SOC",	 "Catalog":"386"},
+                {"Subject" : "SOC",	 "Catalog":"389"},
+                {"Subject" : "SOC",	 "Catalog":"390"},
+                {"Subject" : "SOC",	 "Catalog":"92"},
+                {"Subject" : "SPA",	 "Catalog":"385"},
+                {"Subject" : "SPA",	 "Catalog":"386"},
+                {"Subject" : "SPA",	 "Catalog":"389"},
+                {"Subject" : "SPA",	 "Catalog":"390"},
+                {"Subject" : "SPE",	 "Catalog":"99"},
+                {"Subject" : "SPE",	 "Catalog":"385"},
+                {"Subject" : "SPE",	 "Catalog":"386"},
+                {"Subject" : "SPE",	 "Catalog":"389"},
+                {"Subject" : "SPE",	 "Catalog":"390"},
+                {"Subject" : "SPM",	 "Catalog":"145"},
+                {"Subject" : "SWK",	 "Catalog":"80"},
+                {"Subject" : "SWK",	 "Catalog":"90"},
+                {"Subject" : "SWK",	 "Catalog":"91"},
+                {"Subject" : "SWK",	 "Catalog":"385"},
+                {"Subject" : "SWK",	 "Catalog":"386"},
+                {"Subject" : "SWK",	 "Catalog":"389"},
+                {"Subject" : "SWK",	 "Catalog":"390"},
+                {"Subject" : "THE",	 "Catalog":"188"},
+                {"Subject" : "THE",	 "Catalog":"189"},
+                {"Subject" : "THE",	 "Catalog":"199"},
+                {"Subject" : "THE",	 "Catalog":"385"},
+                {"Subject" : "THE",	 "Catalog":"386"},
+                {"Subject" : "THE",	 "Catalog":"389"},
+                {"Subject" : "THE",	 "Catalog":"390"},
+                {"Subject" : "VISL", "Catalog":"385"},
+                {"Subject" : "VISL", "Catalog":"386"},
+                {"Subject" : "VST",	 "Catalog":"89"},
+                {"Subject" : "VST",	 "Catalog":"386"},
+                {"Subject" : "VST",	 "Catalog":"390"},
+                {"Subject" : "WLT",	 "Catalog":"385"},
+                {"Subject" : "WLT",	 "Catalog":"386"},
+                {"Subject" : "WLT",	 "Catalog":"390"},
+            ]
         }
         
         function displayClass(honors)
@@ -223,7 +521,7 @@
             honorsResult.innerHTML = "";
             honorsResult.innerHTML = honors ? '<p class="green">It\'s Honors!</p>' : '<p class="red">It\'s not Honors :(</p>';
             var clas = document.createElement("span")
-            clas.innerHTML = inputLetters + ' ' + inputNumbers;
+            clas.innerHTML = inputLetters + ' ' + inputNumbers + ' (' + campus + ')';
             clas.style.backgroundColor = honors?'green':'red';
             clas.style.position = "absolute"
             clas.style.top = (rowCount*25)+330 + 'px';
@@ -241,37 +539,72 @@
         }
 
         function checkInputs() {
-            const letters2122 = ['HEG', 'HHI', 'HHP', 'HSS', 'HPS', 'HEC', 'HLS', 'HSP', 'HAR']; // List of valid capital letter combinations
-            const anyLetters = ['GCOS','GEUR','GNYC'];
-            const specificClassesLetters = ['BUS','BIO','SPM','DA','MUS','ENT','MKT','MKT','THE','AI'];
-            const specificClassesNumbers = ['401','193','366','460','299','71','80','82','192','300'];
 
             inputLetters = document.getElementById('inputLetters').value.toUpperCase();
             inputNumbers = document.getElementById('inputNumbers').value;
+            const anyLetters = ['GCOS','GEUR','GNYC'];
 
-            
+            if (anyLetters.includes(inputLetters) || inputNumbers >= 500){}
 
-            if ((letters2122.includes(inputLetters) && (inputNumbers=="21" || inputNumbers=="22")) || anyLetters.includes(inputLetters) || inputNumbers >= 500) {
-                displayClass(true)
-                return;
-            } 
-
-            for (var i = 0; i < specificClassesLetters.length;i++)
+            if (campus=="BK")
             {
-                if (specificClassesLetters[i]===inputLetters && specificClassesNumbers[i]===inputNumbers)
-                {
+                const letters2122 = ['HEG', 'HHI', 'HHP', 'HSS', 'HPS', 'HEC', 'HLS', 'HSP', 'HAR']; // List of valid capital letter combinations
+                const specificClassesLetters = ['BUS','BIO','SPM'];
+                const specificClassesNumbers = ['401','193','366'];
+
+                if ((letters2122.includes(inputLetters) && (inputNumbers=="21" || inputNumbers=="22"))) {
                     displayClass(true)
                     return;
-                }
-            }
-            for (var i = 0;i<HONORS.length;i++)
-            {
-                if (HONORS[i].Subject==inputLetters && HONORS[i].Catalog==inputNumbers)
+                } 
+                for (var i = 0; i < specificClassesLetters.length;i++)
                 {
-                    displayClass(true);
-                    return
+                    if (specificClassesLetters[i]===inputLetters && specificClassesNumbers[i]===inputNumbers)
+                    {
+                        displayClass(true)
+                        return;
+                    }
+                }
+                for (var i = 0;i<HONORSBK.length;i++)
+                {
+                    if (HONORSBK[i].Subject==inputLetters && HONORSBK[i].Catalog==inputNumbers)
+                    {
+                        displayClass(true);
+                        return
+                    }
+                }
+
+            } else if (campus=="P")
+            {
+                const specificClassesLetters = ['DA','MUS','ENT','MKT','MKT','THE','AI'];
+                const specificClassesNumbers = ['460','299','71','80','82','192','300'];
+                const anyNumbers = ['301','302','303','304','359','360','389','390']
+                for (var i = 0; i < anyNumbers.length;i++)
+                {
+                    if (inputNumbers==anyNumbers[i])
+                    {
+                        displayClass(true)
+                        return;
+                    }
+                }
+                for (var i = 0; i < specificClassesLetters.length;i++)
+                {
+                    if (specificClassesLetters[i]===inputLetters && specificClassesNumbers[i]===inputNumbers)
+                    {
+                        displayClass(true)
+                        return;
+                    }
+                }
+                for (var i = 0;i<HONORSPOST.length;i++)
+                {
+                    if (HONORSPOST[i].Subject==inputLetters && HONORSPOST[i].Catalog==inputNumbers)
+                    {
+                        displayClass(true);
+                        return
+                    }
                 }
             }
+
+            
 
                 
             displayClass(false)
@@ -285,8 +618,20 @@
                 button.innerHTML="Dark Mode Toggle (on)"
                 return;
             }
-            document.getElementById("body").style.backgroundColor = "#add8e6"
+            document.getElementById("body").style.backgroundColor = "#69B3e7"
             button.innerHTML="Dark Mode Toggle (off)"
+        }
+
+        function swapCampus(button)
+        {
+            if (button.innerHTML == "Currently Selected: Brooklyn Campus")
+            {
+                campus = "P"
+                button.innerHTML = "Currently Selected: Post Campus";
+                return;
+            }
+            campus = "BK";
+            button.innerHTML = "Currently Selected: Brooklyn Campus";
         }
     </script>
     
