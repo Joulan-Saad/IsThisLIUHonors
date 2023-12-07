@@ -8,10 +8,10 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            background-color: #add8e6; /* Baby blue */
         }
 
         header {
-            background-color: #add8e6; /* Baby blue */
             padding: 20px;
             text-align: center;
         }
@@ -28,7 +28,6 @@
         }
 
         #main-area {
-            background-color: #add8e6; /* Baby blue */
             padding: 20px;
         }
 
@@ -50,8 +49,8 @@
         }
     </style>
 </head>
-<body onload="initialize()">
-
+<body onload="initialize()" id="body">
+    <button id="darkModeToggle" style="position:relative;left:90%" onclick="darkModeToggle(this)">Dark Mode Toggle (off)</button>
     <header>
         <h1 id="welcome">Is This Honors?</h1>
         <div id="yellow-strip"></div>
@@ -72,61 +71,56 @@
         <button onclick="checkInputs()">Check Inputs</button>
 
         <div id="result"></div>
-        <div id="list">
-            <span id="list0"></span>
-            <span id="list1"></span>
-            <span id="list2"></span>
-            <span id="list3"></span>
-            <span id="list4"></span>
-            <!--
-                Elements are being auto sorted into lists, all that's left is to position
-                each list accordingly so that they are not on top of each other
-            -->
-        </div>
+        <div id="list"></div>
     </div>
 
+    <script type="text/javascript" src="./honors_classes.json"></script>
     <script>
         function initialize()
         {
             classCount = 0;
             rowCount=0;
+            columnCount=0;
+            backgroundPadding = 0;
             list = document.getElementById("list");
-            resultElement = document.getElementById('list'+rowCount);
+            honorsResult = document.getElementById("result");
+            const HONORSJSON = fetch('./honors_classes.json')
         }
-
+        
         function displayClass(honors)
         {
-            resultElement.innerHTML = "";
-            if (classCount%6==0)
-            {
-                rowCount++;
-                if (rowCount==7){rowCount=0;}
-                resultElement = document.getElementById('list'+rowCount);
-            }
-            if (honors){resultElement.innerHTML = '<p class="green">It\'s Honors!</p>';}
-            else {resultElement.innerHTML = '<p class="red">It\'s not Honors :(</p>';}
+            honorsResult.innerHTML = "";
+            honorsResult.innerHTML = honors ? '<p class="green">It\'s Honors!</p>' : '<p class="red">It\'s not Honors :(</p>';
             var clas = document.createElement("span")
             clas.innerHTML = inputLetters + ' ' + inputNumbers;
             clas.style.backgroundColor = honors?'green':'red';
-            list.appendChild(clas);
-            list.appendChild(document.createElement("br"));
+            clas.style.position = "absolute"
+            clas.style.top = (rowCount*25)+330 + 'px';
+            clas.style.left = (columnCount*80)+30 + 'px';
+
+            rowCount++;
             classCount++;
-            return;
+            if (classCount%6==0){
+                columnCount++;rowCount -= 6;
+
+                if(columnCount>5){
+                    columnCount=0;rowCount+=6;}
+            }
+            list.appendChild(clas);
         }
 
         function checkInputs() {
-            const letters2122 = ['HEG', 'HHI', 'HHP', 'HSS', 'HPS', 'HEC', 'HLS', 'HSP', 'HAR']; // List of valid capital letter combinations
-            //const validNumbers = ['12', '345', '678']; // List of valid 2 or 3 digit numbers
-            const specificClassesLetters = ['BUS','BIO','SPM','DA','MUS','ENT','MKT','MKT','THE','AI'];
-            const specificClassesNumbers = ['401','193','366','460','299','71','80','82','192','300'];
-            //const specificClassesCampus = ['B','B','B','P','P','P','P','P','P','P']
+            const letters2122 = ['HEG', 'HHI', 'HHP', 'HSS', 'HPS', 'HEC', 'HLS', 'HSP', 'HAR']; // Valid with 21 or 22
+            const anyLetters = ['GCOS','GEUR','GNYC']; //Valid with any number
+            const specificClassesLetters = ['BUS','BIO','SPM','DA','MUS','ENT','MKT','MKT','THE','AI']; //Valid with specific number pairing
+            const specificClassesNumbers = ['401','193','366','460','299','71','80','82','192','300']; //Valid with specific number pairing
 
             inputLetters = document.getElementById('inputLetters').value.toUpperCase();
             inputNumbers = document.getElementById('inputNumbers').value;
 
             
 
-            if (letters2122.includes(inputLetters) && (inputNumbers=="21" || inputNumbers=="22")) {
+            if ((letters2122.includes(inputLetters) && (inputNumbers=="21" || inputNumbers=="22")) || anyLetters.includes(inputLetters) || inputNumbers >= 500) {
                 displayClass(true)
                 return;
             } 
@@ -139,11 +133,24 @@
                     return;
                 }
             }
+
+
                 
             displayClass(false)
             return;
         }
+        function darkModeToggle(button)
+        {
+            if (button.innerHTML=="Dark Mode Toggle (off)")
+            {
+                document.getElementById("body").style.backgroundColor = "#006a8d"
+                button.innerHTML="Dark Mode Toggle (on)"
+                return;
+            }
+            document.getElementById("body").style.backgroundColor = "#add8e6"
+            button.innerHTML="Dark Mode Toggle (off)"
+        }
     </script>
-
+    
 </body>
 </html>
