@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Website</title>
+    <title>Is This Honors?</title>
     <style>
         body {
             margin: 0;
@@ -47,10 +47,51 @@
         #result .red {
             color: red;
         }
+        .sidebar{
+            height:100%;
+            width:25%;
+            background-color:#84c1f6;
+            position:absolute;
+            z-index:1;
+            overflow:auto;
+            left:75%
+        }
+        table{
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #ffc72c;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #ffc72c;
+        }
     </style>
 </head>
 <body onload="initialize()" id="body">
-    <button id="darkModeToggle" style="position:relative;left:90%" onclick="darkModeToggle(this)">Dark Mode Toggle (off)</button>
+
+    <div class="sidebar" style="display:none" id="sidebar">
+        <button onclick="close_sidebar()" id="sidebar_close_button">Close</button>
+        <button onclick="updateList('bk')">Brooklyn</button>
+        <button onclick="updateList('p')">Post</button>
+
+
+        <table>
+            <p style="position:sticky;top:0;position:-webkit-sticky">
+            <!--Debug why it's not sticky-->
+                <th>Campus</th>
+                <th>Subject</th>
+                <th>Catalog</th>
+            </p>
+        </table>
+        <table id="table"></table>
+    </div>
+    <button onclick="open_sidebar()" style="position:relative;left:98%">☰</button>
+
+    <button id="darkModeToggle" style="position:absolute" onclick="darkModeToggle(this)">Dark Mode Toggle (off)</button>
     <header>
         <h1 id="welcome">Is This Honors?</h1>
         <div id="yellow-strip"></div>
@@ -65,7 +106,7 @@
             <input type="text" id="inputLetters" maxlength="4" pattern="[A-Z]">
         </div>
         <div>
-            <label for="inputNumbers">Enter 3-4 digit numbers:</label>
+            <label for="inputNumbers">Enter 2-4 digit numbers:</label>
             <input type="text" id="inputNumbers" maxlength="4" pattern="[0-9]">
         </div>
         <button onclick="checkInputs()">Check Inputs</button>
@@ -76,9 +117,49 @@
     </div>
 
     <script>
+        function open_sidebar() {
+            document.getElementById("sidebar").style.display = "block";
+        }
+
+        function close_sidebar() {
+            document.getElementById("sidebar").style.display = "none";
+        }
+
+        function updateList(campus)
+        {
+            document.getElementById('table').remove();
+            var replacementTable = document.createElement('table');
+            replacementTable.id = 'table';
+            document.getElementById('sidebar').appendChild(replacementTable);
+            
+            campus=='bk'?displayTable(HONORSBK,'Brooklyn'):displayTable(HONORSPOST,'Post');
+        
+        } 
+
+        function displayTable(ele,campus)
+        {
+            for (var i = 0;i<ele.length;i++)
+            {
+                var tr = document.createElement('tr')
+                var th1 = document.createElement('th')
+                var th2 = document.createElement('th')
+                var th3 = document.createElement('th')
+                tr.appendChild(th1);
+                tr.appendChild(th2);
+                tr.appendChild(th3);
+                //tr.className = "tableElements"+campus;
+                //th1.className = "tableElements";
+                //th2.className = "tableElements";
+                //th3.className = "tableElements";
+                th1.innerHTML = campus;
+                th2.innerHTML = ele[i].Subject;
+                th3.innerHTML = ele[i].Catalog;
+                var tbl = document.getElementById('table').appendChild(tr);
+            }
+        }
+
         function initialize()
         {
-            campus = "BK"
             classCount = 0;
             rowCount=0;
             columnCount=0;
@@ -514,6 +595,7 @@
                 {"Subject" : "WLT",	 "Catalog":"386"},
                 {"Subject" : "WLT",	 "Catalog":"390"},
             ]
+            displayTable(HONORSBK,'Brooklyn');
         }
         
         function displayClass(honors)
