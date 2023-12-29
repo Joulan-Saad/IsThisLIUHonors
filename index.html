@@ -622,8 +622,8 @@
 
         function checkInputs() {
 
-            inputLetters = document.getElementById('inputLetters').value.toUpperCase();
-            inputNumbers = document.getElementById('inputNumbers').value;
+            inputLetters = document.getElementById('inputLetters').value.toUpperCase().trim();
+            inputNumbers = document.getElementById('inputNumbers').value.trim();
             const anyLetters = ['GCOS','GEUR','GNYC'];
 
             if (anyLetters.includes(inputLetters) || inputNumbers >= 500){}
