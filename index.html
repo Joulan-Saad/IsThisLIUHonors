@@ -102,7 +102,7 @@
             Notice! This is a prototype version.
         </div>
         <div>
-            <label for="inputLetters">Enter 3-4 capital letters:</label>
+            <label for="inputLetters">Enter 2-4 capital letters:</label>
             <input type="text" id="inputLetters" maxlength="4" pattern="[A-Z]">
         </div>
         <div>
@@ -627,7 +627,7 @@
             inputNumbers = document.getElementById('inputNumbers').value.trim();
             const anyLetters = ['GCOS','GEUR','GNYC'];
 
-            if (anyLetters.includes(inputLetters) || inputNumbers >= 500){}
+            if (anyLetters.includes(inputLetters) || Number(inputNumbers) >= 500){displayClass(true);return;}
 
             if (campus=="BK")
             {
